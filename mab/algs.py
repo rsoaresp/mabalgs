@@ -70,13 +70,14 @@ class UCB1(object):
         exploration_factor = np.sqrt(2 * np.log(counts) / num_selections)
         return avg_reward + exploration_factor
 
-    def reward(self, chosen_arm):
+    def reward(self, chosen_arm, assign_reward = 1):
         """
             This method gives a reward for a given arm.
 
             :param chosen_arm: Value returned from select().
+	    :param assign_reward: The reward given to the arm (default to 1).
         """
-        self.rewards[chosen_arm] += 1
+        self.rewards[chosen_arm] += assign_reward
 
 
 class UCBTuned(UCB1):
@@ -134,13 +135,17 @@ class ThompsomSampling:
 
         return chosen_arm, ranked_arms
 
-    def reward(self, chosen_arm):
+
+    def reward(self, chosen_arm, assign_reward = 1):
         """
             This method gives a reward for a given arm.
 
             :param chosen_arm: Value returned from select().
+	    :param assign_reward: The reward given to the arm (default to 1).
         """
-        self.number_reward_1[chosen_arm] += 1
+        self.number_reward_1[chosen_arm] += assign_reward
+
+
 
     def penalty(self, chosen_arm):
         """
