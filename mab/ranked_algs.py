@@ -69,15 +69,16 @@ class RBA:
 
         return selected_arms
 
-    def reward(self, selected_arms, chosen_arm):
+    def reward(self, selected_arms, chosen_arm, assign_reward = 1):
         """
             This method is responsible to reward the chosen arm in RBA.
+	    :param assign_reward: The reward given to the arm (default to 1).
         """
 
         for arm in selected_arms:
             rank_index = selected_arms.index(arm)
             if arm == chosen_arm:
-                self.ranks[rank_index].reward(arm)
+                self.ranks[rank_index].reward(arm, assign_reward)
             elif hasattr(self.mab_alg_type, 'penalty'):
                 self.ranks[rank_index].penalty(arm)
 
